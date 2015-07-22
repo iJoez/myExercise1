@@ -1,0 +1,165 @@
+2015-06-02
+
+    - shell
+        - $$ - current pid, normally is shell
+        - if [ $var -eq 10 ] 
+          then 
+            commands
+          elif 
+            commands
+          else 
+            command 
+          fi 
+        - [ condition ] && commands  # if condiftion is true, execute commands.
+            [ -f /var/run/dhcpd.pid ] && rm /var/run/dhcpd.pid 
+        - [ condition ] || commands  # if condiftion is false, execute commands.
+        - integer test: -eq, -ne, -gt, -lt, -ge, -le, 
+            if [ $var -gt $var1 ]
+        - string test: -z (empty string?), -n(non-empty string)
+            if [[ $a = $b ]] # or ==, leave space around " = ", or it will be 
+                               an assigment
+            if [[ -z $string ]]  # length is zero?
+            if [[ -n $string ]]  # not empty? 
+            if [[ $string ]]  #if string is not empty
+        - file test:
+              if [ -e $file ] # file is exiting?
+                   -f         # regular file?
+                   -d         # directory?
+                   -s         # file exited and size > 0?
+                   -x         # file is executalbe?
+                   -w         #         writable?
+        - logical expression
+            - if [ !-d $dir ] # if dir is not exiting 
+            - ! (not)
+            - if [ -z "$MYHOME -a -d $HOME/$NAME ]  # and
+            - if [ expr1 -o expre2 ]  # or
+            - test - save it from more []
+                if test $num -eq 0
+                then
+                fi
+            - assignment a=b, comparing a = b.
+            - if [ $a = '1' ] && [... ] 
+    
+    - python
+        none
+
+    - c/c++
+        crash1.c
+
+    - linux debugging
+        - strace -f -p pid ( pid is zsh that lanched the script,
+                             -f means trace child process)
+        - get zsh pid
+            - $$
+              or
+            - ps -t # show process for current terminal.
+            - in one terminal, get pid of zsh, in anthor terminal run,
+              strace -f -p #pid_of_zsh_in_first_terminal, will get all system
+                            calls invoked. 
+        
+        - strcpy(dest, source)
+        - gcc -fno-stack-protector  #disable the gcc stack protector, crash1.c
+
+    - web
+        none
+
+    - other
+        none
+
+2015-0603 
+~
+2015-0607
+None
+
+2015-0607
+    - other
+        tmux
+
+2015-0608
+
+    - shell
+        - ${var%.*}  #get var, cutting the right part to '%'
+            e.g. var="sample.jpg"
+                 name=${var%.*}  # name is "sample"
+        - ${var%%.*}  # greedy cut
+            e.g. var="hack.fun.book.txt"
+                 name=${var%%.*} # name is hack
+                 name=${var%.*} # name is hack.fun.book
+        - ${var#.*} # cutting the left to '#"
+            e.g. var="hack.fun.book.txt"
+                 name={var#*.} # name="fun.book.txt"
+        - ${var##*.} # greedy
+            e.g. var="hack.fun.book.txt"
+                 name={var##*.} # name="txt"
+                 name={var#*.} # name="fun.book.txt"
+    - python
+    - c/c++
+        - explict
+    - linux debugging
+    - web
+    - other
+
+2015-0609
+
+    - shell
+    - python
+    - c/c++
+        explicit 
+            prevent the implicit conversion by calling corresponding constructor with
+            signle argument. 2015-0609-explicit.cpp
+    - linux debugging
+    - web
+    - other
+
+2015-0610
+    None
+
+2015-0611
+    - shell
+        one program: 2015-0611-rename.sh
+        - greedy parse a varible from left to right till '.' ${var##*.}
+        - for, do/done, if/fi
+        - if [ $? -eq 0 ] # leave a blank after [ and before ]
+
+    - other
+        tmux new-session -s name
+
+2015-0612
+
+    - shell
+    - python
+    - c/c++
+    - linux debugging
+          - gdb x/4xb address_express 
+              | |||_show as bytes
+              | |\
+              | | heX
+              | repeat number
+             eXamine
+             e.g. 
+               (gdb) set var i=0x12345678
+               (gdb) x /4xb &i
+               0xbffff074: 0x78    0x56    0x34    0x12
+             help x
+
+          - gdb ptype  
+                     int i = 1337;
+                     int a[]={1,2,3};
+              (gdb) ptype i
+              type = int
+              (gdb) ptype &i
+              type = int *
+              (gdb) ptype main
+              type = int ()
+
+              (gdb) ptype a
+              type = int [3]
+              (gdb) x/12bx a
+              0xbffff050: 0x01    0x00    0x00    0x00    0x02    0x00    0x00    0x00
+              0xbffff058: 0x03    0x00    0x00    0x00
+
+              gdb) ptype &a
+              type = int (*)[3]
+
+    - web
+    - other

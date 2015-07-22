@@ -1,0 +1,104 @@
+======= gcc/g++ ===========
+-fno-stack-protector    //disable stack protection, crash1.c
+-std=c++11              //for c++ 11
+
+
+======= gdb ==============
+set print element 0 #disable limit of gdb print length 
+
+
+======= commands ===========
+find . -name "*.orig" -exec cp {} ~/pani \;
+lsb_release -a  #check the distribution
+curl -O -x 192.11.236.125:8000 url
+
+======= apt ===================
+/etc/apt/apt.conf.d/01proxy
+Acquire::http { Proxy "http://192.11.236.125:8000"; };
+
+====== python ================
+pip install xxx --proxy 192.11.236.125:8000
+pip install virtualenv -i http://pypi.douban.com/simple --proxy 192.11.236.125:8000
+
+cd ENV
+source ./bin/activate   # enter virtual env
+deactivate              # exit
+====== set up env ==============
+sudo apt-get install ctags
+sudo apt-get install cscope
+
+vim:
+sudo apt-get install vim vim-scripts vim-doc
+
+vim-addons install omnicppcomplete 
+vim-addons install taglist
+vim-addons install minibufexplorer
+
+======= ubuntu =======
+alt+mouse to move terminal
+
+====== centos ======
+135.240.67.17 
+sscXXXXXXXX
+goodlaXb
+
+export $http_proxy
+
+update /etc/yum.repos.d
+
+
+Modify files:
+- /etc/yum.repos.d
+
+    - epel.repo
+        replace https with http
+
+    - CentOS-Base.repo 
+        back up this file first, then replace it with 
+        http://mirrors.163.com/.help/centos.html
+        - baseurl=http://mirrors.163.com/centos/$releasever/os/$basearch/
+        - #mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os
+
+- /etc/yum.conf, add proxy for http, https, ftp:
+        proxy=http://192.11.236.125:8000
+        proxy=https://192.11.236.125:8000
+        proxy=ftp://192.11.236.125:8000
+
+
+yum clean all
+yum makecache
+
+=================== shell ========
+check which shell is used
+    - echo $0
+    - cat /etc/shells
+    - echo $SHELL
+    - ps -ef | grep `echo $$` | grep -v grep | grep -v ps
+    - tom #a unavailable command
+
+
+================= network/http/tcp/ip ========
+two kinds of proxy:
+    - http get/post (proxy for http traffic)
+    - http connect (proxy for https
+
+basic topology:
+client --tcp--> proxy --tcp---> server
+no client tcp connect directly to server
+
+VPN is working on IP layer, which implements the connection between client and server.
+
+simplest proxy:
+client ---http get---> proxy ---> http get ---> server
+
+
+client --- http connect ---> proxy --- tcp syn --------> server
+            |
+            |__can be cut here 
+       <-- 200 OK -----------proxy <-- tcp syn ack <---- 
+...........any kind of traffic like SSL ........
+
+client --http conncet --Client STunnel -->SSL http conncet --> proxy Stunnel  -->http connect --> proxy --TCP SYN ---> server
+
+
+
