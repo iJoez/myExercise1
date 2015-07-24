@@ -3,7 +3,7 @@
 -std=c++11              //for c++ 11
 
 
-======= gdb ==============
+========== gdb ==============
 set print element 0 #disable limit of gdb print length 
 
 
