@@ -16,16 +16,16 @@ public:
     ConcreteSubject();
     void request();
     ~ConcreteSubject();
-}
+};
 
-class proxy {
+class Proxy {
 public:
-    proxy();
-    proxy(Subject* sub);
-    ~proxy();
-    void reuqest();
+    Proxy();
+    Proxy(Subject* sub);
+    ~Proxy();
+    void request();
 
-protected:
+private:
     Subject* _sub;
 };
 

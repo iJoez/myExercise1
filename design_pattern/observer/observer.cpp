@@ -1,39 +1,70 @@
 #include "observer.hpp"
+#include <iostream>
 using namespace std;
-
-ConcreteObserser::ConcreteObserver(Subject subject, string name)
+Observer::Observer()
 {
-    this->name = name;
-    this->subject = subject;
+	_state = '\0';
+}
+ConcreteObserver::ConcreteObserver(Subject *subject, string name)
+{
+    this->_name = name;
+    this->_sub = subject;
+	_sub->attach(this);
 }
 
-void ConcreteObserser::update(string state)
+void ConcreteObserver::update(Subject *sub)
 {
-    cout << name << "'s state has changed into " << state << endl;
+	this->_state = sub->getState();
+    cout << getName() << "'s state has changed into " << getState() << endl;
 }
 
-void Subject::attach(Observer ob)
+string ConcreteObserver::getState()
 {
-    observsers.push_back(ob);
+	return _state;
 }
 
+string ConcreteObserver::getName()
+{
+	return _name;
+}
+
+void Subject::attach(Observer *ob)
+{
+    observers.push_back(ob);
+}
+
+Subject *ConcreteObserver::getSubject()
+{
+	return _sub;
+}
+
+#if 0
 void Subject::changeState(string state)
 {
     this->state = state;
 }
+#endif
 
-void ConcreteSubject::ConcreteSubject(string name, string state)
+ConcreteSubject::ConcreteSubject()
 {
-    this->state = state;
-    this->name = name;
 }
 
-void ConcreteSubject::notify()
+string ConcreteSubject::getState()
 {
-    for (vector<Observer>::iterator it = observers.begin();
+    return _state;
+}
+
+void ConcreteSubject::setState(State state)
+{
+    this->_state = state;
+}
+
+void Subject::notify()
+{
+    for (vector<Observer*>::iterator it = observers.begin();
          it != observers.end();
          it ++)
     {
-        it.update(state);
+        (*it)->update(this);
     }
 }

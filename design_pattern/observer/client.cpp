@@ -2,12 +2,18 @@
 
 int main()
 {
-    Subject sub = new ConcreteSubject("Design Pattern", "init");
-    Observer ob1 = new ConcreteObserver(sub, "ob1");
-    Observer ob2 = new ConcreteObserver(sub, "ob2");
+    ConcreteSubject* sub = new ConcreteSubject();
+    Observer *ob1 = new ConcreteObserver(sub, "ob1");
+    Observer *ob2 = new ConcreteObserver(sub, "ob2");
 
-    sub.attach(ob1);
-    sub.attach(ob2);
-    sub.changeState("change 1");
-    sub.notify();
+    sub->setState("New");
+    sub->notify();
+    sub->setState("Old");
+    sub->notify();
+
+    delete ob1;	
+    delete ob2;	
+    delete sub;
+
+    return 0;
 }
