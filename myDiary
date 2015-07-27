@@ -163,3 +163,51 @@ None
 
     - web
     - other
+
+
+2015-07-27
+
+Exception:
+- Happens when CPU executes an instruction.
+    - detected by CPU (e.g. divided by 0, segementation fault), switch to kernel.
+    - INT (e.g. system call INT 0x80, INT)
+    - what user can see is a signal, not a concrete exception.
+
+- types:
+    - Fault
+        - might be recovered
+        - excute the instruction that failed (Icur).
+        - most case
+        - e.g. page fault
+
+    - Trap
+        - caused by debugging trapping instruction (e.g. INT 3)
+        - excute the instruction following the one that failed.
+
+    - Abort
+        - termination
+
+How segv happens?
+the current thread executed by CPU has segement has:
+task_struct->mm_struct *mm;  /* mmap */, which is pointing to:
+VMA-1    VMA-2 ...   
+vm_start
+vm_end
+vm_next
+
+links the following segments:
+- .text
+- .bss
+- .heap
+- .stack
+
+If the memory to acccess is not located bwteen all vm_start and vm_end, segv happens.
+
+stack is per thread (not per process).
+
+check varials in .data and .bss in ELF:
+    - objdump -a -x -t -d ./my_test > x.objdump
+    - egrep "\.data|.bss" x*mp |sort
+
+
+
