@@ -1,0 +1,48 @@
+#include <iostream>
+#include "proxy.hpp"
+
+using namespace std;
+
+Subject::Subject()
+{
+}
+
+Subject::~Subject()
+{
+}
+
+void Subject::request()
+{
+    cout << "Subject is requesting ..." << endl;
+}
+
+#if 0
+ConcreteSubject::ConcreteSubject()
+{
+}
+
+ConcreteSubject::~ConcreteSubject()
+{
+    //delete this;
+}
+#endif
+
+Proxy::Proxy()
+{
+}
+
+Proxy::Proxy(Subject* sub)
+{
+    _sub = sub;
+}
+
+Proxy::~Proxy()
+{
+    delete _sub;
+}
+
+void Proxy::request()
+{
+    cout << "Proxy is requesting ..." << endl;
+    _sub->request();
+}
